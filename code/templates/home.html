@@ -1,24 +1,164 @@
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="./style.css" rel="stylesheet">
-<header>
-  <nav>
-    <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">About Us</a></li>
-      <li><a href="#">Contact</a></li>
-      <li><a href="#">Log in</a></li>
-      <li><a href="#">Sign up</a></li>
-      
-    </ul>
-  </nav>
-</header>
-<h1>Employees Performance Prediction</h1>
-<img src="https://img.logoipsum.com/245.svg" alt="Logo">
-<div class="blob" id="blob1"></div>
-<div class="blob" id="blob2"></div>
-<div class="blob" id="blob3"></div>
-<svg id="line" viewBox="0 0 500 500" width="500" height="500">
-    <path style="stroke-width: 3px; stroke-linecap: round; stroke: rgb(179, 192, 239); paint-order: stroke; fill: none;" d="M 410.107 119.627 C 610.559 91.754 447.468 205.23 267.236 230.292 C 98.654 236.087 197.1 61.629 103.197 159.266 C 142.803 121.311 -69.077 302.058 126.896 342.895"></path>
-</svg>
+{% extends 'base.html' %}
 
+{% block css %}
+<style>
+  
+</style>
+{% endblock %}
+{% block body %}
+<div class="container">
+  <div class="row my-5">
+    <div class="col-md-10 mx-auto">
+      <h1>Employees Performance Prediction</h1>
+      
+      <form method="post">
+        <div class="mb-3">
+          <label for="team" class="form-label">Team</label>
+          <select class="form-select form-select-sm" name="team" id="team">
+            <option selected>Select one</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+          </select>
+        </div>
+        <div class="form-floating mb-3">
+          <input
+          type="number"
+          class="form-control" name="targeted_productivity" id="targeted_productivity" placeholder="enter value" step=".01">
+          <label for="targeted_productivity">targeted productivity</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input
+          type="number"
+          class="form-control" name="smv" id="smv" placeholder="smv" step=".01">
+          <label for="smv">smv</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input
+          type="number"
+          class="form-control" name="wip" id="wip" placeholder="wip">
+          <label for="wip">wip</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input
+          type="number"
+          class="form-control" name="over_time" id="over_time" placeholder="over_time">
+          <label for="over_time">over_time</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input
+          type="number"
+          class="form-control" name="incentive" id="incentive" placeholder="incentive">
+          <label for="incentive">Incentive</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input
+          type="number"
+          class="form-control" name="idle_time" id="idle_time" placeholder="idle_time">
+          <label for="idle_time">idle_time</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input
+          type="number"
+          class="form-control" name="idle_men" id="idle_men" placeholder="idle_men">
+          <label for="idle_men">idle_men</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input
+          type="number"
+          class="form-control" name="no_of_style_change" id="no_of_style_change" placeholder="no_of_style_change">
+          <label for="no_of_style_change">no_of_style_change</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input
+          type="number"
+          class="form-control" name="no_of_workers" id="no_of_workers" placeholder="no_of_workers">
+          <label for="no_of_workers">no_of_workers</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input
+          type="number"
+          class="form-control" name="month" id="month" placeholder="month">
+          <label for="month">month</label>
+        </div>
+        <div class="mb-3">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="quarter_Quarter1" value="1" name="quarter_Quarter1">
+            <label class="form-check-label" for="quarter_Quarter1">Quarter 1</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="quarter_Quarter2" value="1" name="quarter_Quarter2">
+            <label class="form-check-label" for="quarter_Quarter2">Quarter 2</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="quarter_Quarter3" value="1" name="quarter_Quarter3">
+            <label class="form-check-label" for="quarter_Quarter3">Quarter 3</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="quarter_Quarter4" value="1" name="quarter_Quarter4">
+            <label class="form-check-label" for="quarter_Quarter4">Quarter 4</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="quarter_Quarter5" value="1" name="quarter_Quarter5">
+            <label class="form-check-label" for="quarter_Quarter5">Quarter 5</label>
+          </div>
+        </div>
+        <div class="mb-3">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" value="1" id="day_Monday" name="day_Monday">
+            <label class="form-check-label" for="day_Monday">
+              Monday
+            </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" value="1" id="day_Tuesday" name="day_Tuesday">
+            <label class="form-check-label" for="day_Tuesday">
+              Tuesday
+            </label>
+          </div>
+          
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" value="1" id="day_Wednesday" name="day_Wednesday">
+            <label class="form-check-label" for="day_Wednesday">
+              Wednesday
+            </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" value="1" id="day_Thursday" name="day_Thursday">
+            <label class="form-check-label" for="day_Thursday">
+              Thursday
+            </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" value="1" id="day_Saturday" name="day_Saturday">
+            <label class="form-check-label" for="day_Saturday">
+              Saturday
+            </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" value="1" id="day_Sunday" name="day_Sunday">
+            <label class="form-check-label" for="day_Sunday">
+              Sunday
+            </label>
+          </div>
+        </div>
+        <div class="d-grid gap-2">
+          <button class="btn btn-primary">Submit and Predict</button>
+          <input type="reset" class="btn btn-danger" value="Clear">
+        </div>
+      </form> 
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}
+{% block js %}{% endblock %}
