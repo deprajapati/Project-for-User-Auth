@@ -9,6 +9,7 @@ from utils import *
 import pandas as pd
 import numpy as np
 import joblib
+import plotly.express as px
 
 from flask import Flask,session,flash,redirect,render_template,url_for
 
@@ -160,6 +161,8 @@ def home():
                                 quarter_Quarter3, quarter_Quarter4, quarter_Quarter5,
                                 day_Sunday, day_Monday, day_Tuesday, day_Wednesday,
                                 day_Thursday, day_Saturday)
+                print(df)
+                print(df.dtypes)
                 performance = predict_performance(df)
                 flash(f'predicted performance is {performance}','success')
                 return render_template('home.html',title=f'Home|{username}',performance=performance)
@@ -174,12 +177,29 @@ def home():
 def about():
     return render_template('about.html',title='About Us')
 
+def visualize():
+    df_train = pd.read_csv(r'training/train_dataset.csv')
+    corr_cols = df_train.corrwith(df_train['actual_productivity'])
+    fig1 = px.bar(x=corr_cols.index, y=corr_cols.values)
+    # plot the distribution of target variable
+    fig2 = px.histogram(df_train, x='actual_productivity', nbins=100, title='Distribution of target variable')
+    # boxplot of target variable
+    fig3 = px.box(df_train, y='actual_productivity', title='Boxplot of target variable')
+    return fig1, fig2, fig3
+
 @app.route('/logout')
 def logout():
     if session.get('isauth'):
         session.clear()
         flash('you have been logged out','warning')
     return redirect('/')
+
+
+@app.route('/visualize')
+def visualize_page():
+    f1,f2,f3 = visualize()
+    return render_template('visualize.html', f1 =f1.to_html(), 
+                           f3 =f3.to_html(),f2 =f2.to_html())
 
 if __name__ == "__main__":
     app.run(debug=True,threaded=True)
