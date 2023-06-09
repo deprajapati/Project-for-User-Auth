@@ -153,19 +153,33 @@ def home():
             day_Wednesday = request.form.get('day_Wednesday')
             day_Thursday = request.form.get('day_Thursday')
             day_Saturday = request.form.get('day_Saturday')
-
+            
             try:
+                team = int(team)
+                smv = float(smv)
+                wip = int(wip)
+                over_time = int(over_time)
+                idle_men = int(idle_men)
+                idle_time = int(idle_time)
+                no_of_style_change = int(no_of_style_change)
+                no_of_workers = int(no_of_workers)
+                month = int(month)
+              
                 df = make_df(team, trageted_productivity, smv, wip, over_time,
                                inceptive, idle_time, idle_men, no_of_style_change,
                                no_of_workers, month, quarter_Quarter1, quarter_Quarter2,
                                 quarter_Quarter3, quarter_Quarter4, quarter_Quarter5,
                                 day_Sunday, day_Monday, day_Tuesday, day_Wednesday,
                                 day_Thursday, day_Saturday)
+                # print(df)
+                df.replace('None', 0, inplace=True)
+                df.fillna(0, inplace=True)
+                df = df.astype('float64')
                 print(df)
                 print(df.dtypes)
                 performance = predict_performance(df)
-                flash(f'predicted performance is {performance}','success')
-                return render_template('home.html',title=f'Home|{username}',performance=performance)
+                flash(f'predicted performance is {round(performance,2)} %','success')
+                return render_template('result.html',title=f'Home|{username}',performance=round(performance,2))
             except Exception as e:
                 flash(e,'danger')    
         return render_template('home.html',title=f'Home|{username}')
