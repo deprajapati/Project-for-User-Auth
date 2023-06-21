@@ -83,7 +83,7 @@ def index():
                         session['name'] = user.name
                         del sess
                         flash('login successfull','success')
-                        return redirect('/home')
+                        return redirect('/concept')
                     else:
                         flash('email or password is wrong','danger')
                 except Exception as e:
@@ -208,6 +208,10 @@ def logout():
         flash('you have been logged out','warning')
     return redirect('/')
 
+
+@app.route('/concept')
+def concept():
+    return render_template('concept.html')
 
 @app.route('/visualize')
 def visualize_page():
